@@ -6,7 +6,7 @@
       嚯嚯
     </div>
     <div v-else-if="shift === 'start'">
-      哈哈
+      <mystart></mystart>
     </div>
 
     <div class="nav">

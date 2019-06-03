@@ -12,10 +12,11 @@ const actions = {
     apiOrder.start(
       getToken(),
       getUser(),
-      payload.from,
-      payload.to,
-      payload.datetime,
-      payload.location,
+      payload.name,
+      payload.description,
+      payload.contact,
+      payload.price,
+      payload.imgFile,
       payload.callback
     )
   }

@@ -22,11 +22,14 @@ cursor.execute(sql)
 
 sql = """CREATE TABLE `Item` (
     `id` int(10) NOT NULL AUTO_INCREMENT,
-    `description` char(200),
+    `name` varchar(30) NOT NULL,
+    `description` varchar(200) NOT NULL,
+    `contact` varchar(50) NOT NULL,
+    `price` int NOT NULL,
+    `img_path` varchar(50),
     `seller` char(20) NOT NULL,
     `buyer` char(20),
     `selldate` datetime NOT NULL,
-    `location` char(50) NOT NULL,
     PRIMARY KEY (`id`),
     FOREIGN KEY (`seller`) REFERENCES User(`username`),
     FOREIGN KEY (`buyer`) REFERENCES User(`username`)

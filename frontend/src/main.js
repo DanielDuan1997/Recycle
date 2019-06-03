@@ -13,12 +13,18 @@ import '@/static/permission'
 
 import myheader from '@/components/myheader'
 import mylogo from '@/components/mylogo'
+import mystart from '@/components/mystart'
+import mywaiting from '@/components/mywaiting'
+import mydialog from '@/components/mydialog'
 
 Vue.config.productionTip = false
 Vue.use(MuseUI)
 
 Vue.component('myheader', myheader)
 Vue.component('mylogo', mylogo)
+Vue.component('mystart', mystart)
+Vue.component('mywaiting', mywaiting)
+Vue.component('mydialog', mydialog)
 
 theme.add('indigo', {
   primary: '#3f51b5',
