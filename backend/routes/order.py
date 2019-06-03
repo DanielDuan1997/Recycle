@@ -73,7 +73,7 @@ def get_specific_order():
     order_id = int(data["order_id"])
     cursor = db.cursor()
     try:
-        sql = f"SELECT name, seller, selldate, description, contact, img_path FROM Item WHERE Item.id={order_id}"
+        sql = f"SELECT name, seller, selldate, description, contact, price, img_path FROM Item WHERE Item.id={order_id}"
         cursor.execute(sql)
         rec = cursor.fetchone()
         order = dict()
@@ -82,8 +82,9 @@ def get_specific_order():
         order["selldate"] = rec[2].strftime("%Y-%m-%d")
         order["description"] = rec[3]
         order["contact"] = rec[4]
-        order["suffix"] = get_suffix(rec[5])
-        order["img"] = get_image(rec[5])
+        order["price"] = rec[5]
+        order["suffix"] = get_suffix(rec[6])
+        order["img"] = get_image(rec[6])
         response = make_response(json.dumps(order), 200)
     except Exception as e:
         response = make_response("Internal Error", 500)

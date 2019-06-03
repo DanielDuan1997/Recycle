@@ -7,24 +7,12 @@
       <mu-card-media :title="name">
         <img :src="img">
       </mu-card-media>
-      <mu-card-title :title="contact"></mu-card-title>
+      <mu-card-title :title="price" :sub-title="contact"></mu-card-title>
       <mu-card-text class="card-text">
         {{description}}
       </mu-card-text>
-<!-- 
-      <mu-card-actions>
-        <mu-button flat>Action 1</mu-button>
-        <mu-button flat>Action 2</mu-button>
-      </mu-card-actions> -->
     </mu-card>
   </mu-container>
-<!--   <mu-container>
-    {{name}}<br>
-    {{seller}}<br>
-    {{description}}<br>
-    {{contact}}<br>
-    <img :src="img" class="image" />
-  </mu-container> -->
 </template>
 
 <script>
@@ -38,6 +26,7 @@ export default {
       seller: '',
       sellDate: '',
       description: '',
+      price: undefined,
       contact: '',
       img: '',
     }
@@ -51,6 +40,7 @@ export default {
       this.name = data.name
       this.seller = data.seller
       this.sellDate = data.selldate
+      this.price = data.price + " 元"
       this.description = data.description
       this.contact = "联系方式:  " + data.contact
       this.img = "data:image/" + data.suffix + ";base64," + data.img
