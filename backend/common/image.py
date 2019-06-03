@@ -1,6 +1,6 @@
 import base64
 
-def save_image(img_file):
+def save_image(img_file, item_id):
     split_img_file = img_file.split(';base64,')
     main_data = split_img_file[1]
     suffix = split_img_file[0].split('/')[-1]

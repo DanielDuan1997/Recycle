@@ -32,7 +32,7 @@ def start_order():
         sql = f"INSERT INTO `Relation`(`username`, `item_id`) VALUES ('{user}', {item_id});"
         cursor.execute(sql)
 
-        img_path = save_image(img_file)
+        img_path = save_image(img_file, item_id)
 
         sql = f"UPDATE Item SET img_path='{img_path}' WHERE id={item_id};"
         cursor.execute(sql)
