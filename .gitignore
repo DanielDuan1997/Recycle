@@ -4,4 +4,6 @@ frontend/www/
 .DS_Store
 __pycache__
 .vscode
+frontend/static/img/
+backend/img/
 
