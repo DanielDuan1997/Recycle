@@ -19,6 +19,23 @@ const actions = {
       payload.imgFile,
       payload.callback
     )
+  },
+  getOrder ({commit}, payload) {
+    apiOrder.get(
+      getToken(),
+      getUser(),
+      payload.cbSuccess,
+      payload.cbFail
+    )
+  },
+  getSpecificOrder ({commit}, payload) {
+    apiOrder.getSpecific(
+      getToken(),
+      getUser(),
+      payload.order_id,
+      payload.cbSuccess,
+      payload.cbFail
+    )
   }
 }
 

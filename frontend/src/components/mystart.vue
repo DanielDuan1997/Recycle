@@ -1,5 +1,5 @@
 <template>
-  <mu-container>
+  <mu-container class="container">
     <mu-row class="row">
       <mu-col span="1">
       </mu-col>
@@ -166,6 +166,9 @@ export default {
 </script>
 
 <style scoped>
+.container {
+  margin-top: 70px;
+}
 .row {
   font-size: 18px;
   background: rgba(255, 255, 255, 1);

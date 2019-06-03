@@ -14,6 +14,7 @@ import '@/static/permission'
 import myheader from '@/components/myheader'
 import mylogo from '@/components/mylogo'
 import mystart from '@/components/mystart'
+import myorder from '@/components/myorder'
 import mywaiting from '@/components/mywaiting'
 import mydialog from '@/components/mydialog'
 
@@ -23,6 +24,7 @@ Vue.use(MuseUI)
 Vue.component('myheader', myheader)
 Vue.component('mylogo', mylogo)
 Vue.component('mystart', mystart)
+Vue.component('myorder', myorder)
 Vue.component('mywaiting', mywaiting)
 Vue.component('mydialog', mydialog)
 

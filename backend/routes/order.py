@@ -1,9 +1,10 @@
-import base64
+import json
 from flask import Blueprint, request, make_response
 from datetime import datetime
 
 from common.mysql_connector import db
 from common.auth import auth
+from common.image import save_image, get_image, get_suffix
 
 order = Blueprint("order", __name__)
 
@@ -21,23 +22,17 @@ def start_order():
     if name is None or description is None or contact is None or price is None or price is None or img_file is None:
         return make_response("Information not complete", 403)
 
-    starttime = datetime.now().strftime("%Y%m%d%H%M%S")
+    selltime = datetime.now().strftime("%Y%m%d%H%M%S")
     cursor = db.cursor()
     try:
-        sql = f"INSERT INTO Item(name, description, contact, price, seller, selldate) VALUES ('{name}', '{description}', '{contact}', '{price}', '{user}', {starttime});"
+        sql = f"INSERT INTO Item(name, description, contact, price, seller, selldate) VALUES ('{name}', '{description}', '{contact}', '{price}', '{user}', {selltime});"
         cursor.execute(sql)
         cursor.execute(f"SELECT LAST_INSERT_ID();")
         item_id = cursor.fetchone()[0]
         sql = f"INSERT INTO `Relation`(`username`, `item_id`) VALUES ('{user}', {item_id});"
         cursor.execute(sql)
 
-        split_img_file = img_file.split(';base64,')
-        main_data = split_img_file[1]
-        suffix = split_img_file[0].split('/')[-1]
-        img_path = f"img/{item_id}.{suffix}"
-        img_data = base64.b64decode(main_data)
-        file = open(img_path, 'wb')
-        file.write(img_data)
+        img_path = save_image(img_file)
 
         sql = f"UPDATE Item SET img_path='{img_path}' WHERE id={item_id};"
         cursor.execute(sql)
@@ -46,6 +41,51 @@ def start_order():
         response = make_response("success", 200)
     except Exception as e:
         db.rollback()
+        response = make_response("Internal Error", 500)
+        print(e)
+    cursor.close()
+    return response
+
+@order.route('/getorder', methods=["POST"])
+@auth
+def get_order():
+    cursor = db.cursor()
+    sql = f"SELECT id, name, description, img_path FROM Item ORDER BY Item.selldate DESC;"
+    cursor.execute(sql)
+    rec = cursor.fetchall()
+    orders = []
+    for each in rec:
+        order = dict()
+        order["id"] = each[0]
+        order["name"] = each[1]
+        order["description"] = each[2]
+        order["suffix"] = get_suffix(each[3])
+        order["img"] = get_image(each[3])
+        orders.append(order)
+    response = make_response(json.dumps(orders), 200)
+    cursor.close()
+    return response
+
+@order.route('/getspecificorder', methods=["POST"])
+@auth
+def get_specific_order():
+    data = request.form.to_dict()
+    order_id = int(data["order_id"])
+    cursor = db.cursor()
+    try:
+        sql = f"SELECT name, seller, selldate, description, contact, img_path FROM Item WHERE Item.id={order_id}"
+        cursor.execute(sql)
+        rec = cursor.fetchone()
+        order = dict()
+        order["name"] = rec[0]
+        order["seller"] = rec[1]
+        order["selldate"] = rec[2].strftime("%Y-%m-%d")
+        order["description"] = rec[3]
+        order["contact"] = rec[4]
+        order["suffix"] = get_suffix(rec[5])
+        order["img"] = get_image(rec[5])
+        response = make_response(json.dumps(order), 200)
+    except Exception as e:
         response = make_response("Internal Error", 500)
         print(e)
     cursor.close()

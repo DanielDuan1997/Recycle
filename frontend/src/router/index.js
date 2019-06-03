@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import HomePage from '@/components/HomePage'
 import Login from '@/components/Login'
 import SignUp from '@/components/SignUp'
+import Order from '@/components/Order'
 
 Vue.use(VueRouter)
 
@@ -23,6 +24,11 @@ export default new VueRouter({
       path: '/signup',
       name: 'signup',
       component: SignUp
+    },
+    {
+      path: '/order/:order_id',
+      name: 'order',
+      component: Order,
     }
   ]
 })

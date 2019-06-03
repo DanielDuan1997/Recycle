@@ -3,7 +3,7 @@
     <myheader left-icon=":iconfont icon-menu" title="Recycle" leave></myheader>
 
     <div v-if="shift === 'see'">
-      嚯嚯
+      <myorder></myorder>
     </div>
     <div v-else-if="shift === 'start'">
       <mystart></mystart>
