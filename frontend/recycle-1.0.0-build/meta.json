@@ -1,0 +1,23 @@
+{
+    "name": "recycle",
+    "version": "1.0.0",
+    "description": "One of graduation essay projects",
+    "display_name": "",
+    "location": {
+        "latitude": 0,
+        "longitude": 0,
+        "radius": 0
+    },
+    "deps": {
+        "animejs": "3.0.1",
+        "axios": "0.19.0",
+        "cssnano": "4.1.10",
+        "js-yaml": "3.13.1",
+        "last-call-webpack-plugin": "3.0.0",
+        "md5": "2.2.1",
+        "muse-ui": "3.0.2",
+        "vue": "2.6.10",
+        "vue-router": "3.0.6",
+        "vuex": "3.1.1"
+    }
+}
